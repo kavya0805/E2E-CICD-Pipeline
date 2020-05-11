@@ -1,5 +1,4 @@
 - name : ec2-launcher
-  hosts : localhost
   tasks:
   - name : launch-ec2
     ec2 :
