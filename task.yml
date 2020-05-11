@@ -1,5 +1,5 @@
 - name : ec2-launcher
-  hosts : 18.222.197.128
+  hosts : localhost
   tasks:
   - name : launch-ec2
     ec2 :
