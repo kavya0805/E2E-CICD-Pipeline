@@ -1,6 +1,6 @@
 - name : ec2-launcher
   hosts : host01
-  connection : local
+  connection : host01
   tasks:
   - name : launch-ec2
     ec2 :
