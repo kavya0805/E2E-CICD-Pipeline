@@ -10,6 +10,6 @@
      region : us-east-2
      group : launch-wizard-1
      count : 1
-     vpc_subnet_id : subnet-9f5562e5
+     vpc_subnet_id : subnet-574b782d
      wait : yes
      assign_public_ip : yes
