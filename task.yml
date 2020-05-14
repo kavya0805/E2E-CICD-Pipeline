@@ -2,14 +2,35 @@
   hosts : server
   connection : ssh
   tasks:
+  - name: Setting up Security/Firewall Group
+    ec2_group:
+      name: default_linux_ec2
+      description: Rules that allow traffic on port 22 and 80
+      region: us-east-2
+      rules:
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+      rules_egress:
+        - proto: all
+          cidr_ip: 0.0.0.0/0
   - name : launch-ec2
     ec2 :
      instance_type : t2.micro
      key_name : devops-ec2
      image : ami-097834fcb3081f51a
      region : us-east-2
-     group : launch-wizard-1
+     group : default_linux_ec2
      count : 1
      vpc_subnet_id : subnet-574b782d
      wait : yes
      assign_public_ip : yes
+    register: ec2_out
+
+  - name: Time for SSH to come up
+    wait_for: host="{{ ec2_out.tagged_instances[0].public_dns_name }}" port=22 delay=10  timeout=300
