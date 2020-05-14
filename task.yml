@@ -1,5 +1,5 @@
 - name : ec2-launcher
-  hosts : 127.0.0.1
+  hosts : server
   connection : ssh
   tasks:
   - name : launch-ec2
