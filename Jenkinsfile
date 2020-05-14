@@ -48,7 +48,7 @@ node{
         def myIp = output.split('"')
         def ipAddress = myIp[1]
         sshagent(['aws-dev-server']){
-            sh "ssh -i 'devops-ec2.pem' ec2-user@${ipAddress} ${dockerCMD}"
+            sh "ssh -o StrictHostKeyChecking=no ec2-user@${ipAddress} ${dockerCMD}"
         }
     }
     
