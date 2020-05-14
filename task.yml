@@ -1,6 +1,6 @@
 - name : ec2-launcher
-  hosts : server
-  connection : ssh
+  hosts : localhost
+  connection : local
   tasks:    
   - name : launch-ec2
     ec2 :
