@@ -1,13 +1,19 @@
 - name : ec2-launcher
   hosts : server
   connection : ssh
-  tasks:
-  - name: Setting up Security/Firewall Group
-    ec2_group:
-      name: default_linux_ec2
-      description: Rules that allow traffic on port 22 and 80
-      region: us-east-2
-      rules:
+  tasks:    
+  - name : launch-ec2
+    ec2 :
+     instance_type : t2.micro
+     key_name : devops-ec2
+     image : ami-097834fcb3081f51a
+     region : us-east-2
+     group : SSH_Port22
+     count : 1
+     vpc_subnet_id : subnet-574b782d
+     wait : yes
+     assign_public_ip : yes
+     rules:
         - proto: tcp
           from_port: 80
           to_port: 80
@@ -19,14 +25,3 @@
       rules_egress:
         - proto: all
           cidr_ip: 0.0.0.0/0
-  - name : launch-ec2
-    ec2 :
-     instance_type : t2.micro
-     key_name : devops-ec2
-     image : ami-097834fcb3081f51a
-     region : us-east-2
-     group : default_linux_ec2
-     count : 1
-     vpc_subnet_id : subnet-574b782d
-     wait : yes
-     assign_public_ip : yes
